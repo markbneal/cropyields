@@ -42,7 +42,7 @@ db %>%
   scale_x_continuous(guide = guide_axis(angle = 90)) +
   labs(x = NULL, y = "Yield (tDM per hectare)")
 
-ggsave("pasture by year, facet by region.png", width = 8, height=6)
+ggsave("pasture by year, facet by region.png", width = 8, height=6) #saves last plot
 
 #### Many models ####
 # Now let’s fit a linear model to each country-crop combination.
@@ -77,7 +77,7 @@ slopes_db
 
 library(ggrepel)
 slopes_db %>%
-  ggplot(aes(estimate, p.value, label = Region )) +
+  ggplot(aes(estimate, p.value, label = Region, colour = Region )) +
   geom_vline(
     xintercept = 0, lty = 2,
     size = 1.5, alpha = 0.7, color = "gray50"
@@ -88,4 +88,9 @@ slopes_db %>%
   geom_text_repel(size = 3) +
   theme_light() +
   theme(strip.text = element_text(size = 12)) +
-  labs(x = "increase in t DM per hectare per year")
+  labs(x = "increase in t DM per hectare per year")+
+  theme(legend.position = "none")
+
+ggsave("linear trend and p value, pasture by year, facet by region.png", width = 8, height=6) #saves last plot
+
+
